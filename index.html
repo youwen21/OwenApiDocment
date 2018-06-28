@@ -1,0 +1,72 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <title>Owen接口文档系统-基于markdown的文档系统</title>
+    <link rel="stylesheet" type="text/css" href="./markdown-css-themes-gh-pages/screen.css">
+    <link rel="stylesheet" href="./highlight.js-master/src/styles/arta.css">
+    <link href="http://cdn.bootcss.com/highlight.js/8.0/styles/monokai_sublime.min.css" rel="stylesheet">
+    <link href="base.css" rel="stylesheet">
+</head>
+
+<body>
+    <script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <script src="http://cdn.bootcss.com/highlight.js/8.0/highlight.min.js"></script>
+    <!-- <script src="./highlight.js-master/src/highlight.js"></script> -->
+    <div id="content" class="markdown-body"></div>
+    <div id="goToTop">
+        <a href="#">返回首页(JumpToIndex)</a>
+        <br/>
+        <p>power by :owen</p>
+    </div>
+    <script>
+        // hljs.initHighlightingOnLoad();
+    var renderer = new marked.Renderer();
+    marked.setOptions({
+        renderer: renderer,
+        gfm: true,
+        tables: true,
+        breaks: false,
+        pedantic: false,
+        sanitize: false,
+        smartLists: true,
+        smartypants: false,
+        highlight: function(code) {
+            var html = hljs.highlightAuto(code).value;
+            return html;
+        }
+    });
+    $.get('index.md', function(ret) {
+        document.getElementById('content').innerHTML = marked(ret).replace('code class="', 'code class="hljs ');
+    })
+    </script>
+    <script type="text/javascript">
+    $("#content").on('click', "a", function() {
+        var md = $(this).attr('href');
+        if((md.indexOf('#')!= 0) && (md.indexOf('http') < 0) ){
+	        $.get(md, function(ret) {
+	            document.getElementById('content').innerHTML = marked(ret).replace('code class="', 'code class="hljs ');
+	        })
+	        window.scrollTo(0, 0);
+	        // $('html,body').animate({scrollTop:0},'slow');
+	        return false;
+        }
+    })
+    </script>
+    <script type="text/javascript">
+    /**
+     * 返回首页
+     * @author baiyouwen
+     */
+    $('#goToTop a').click(function() {
+        $.get('index.md', function(ret) {
+            document.getElementById('content').innerHTML = marked(ret).replace('code class="', 'code class="hljs ');
+        })
+        window.scrollTo(0, 0);
+    });
+    </script>
+</body>
+
+</html>
