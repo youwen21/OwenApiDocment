@@ -24,13 +24,13 @@ Owen接口文档系统组成有
 - [monokai_sublime：Sublime风格主题，找不到出处了](#)
 
 ### 项目结构
--js
--css
--doc
-    + 文档模块1
-    + 文档模块2
-- index.html 首页
-- index.md 首页markdown文档
+    - js
+    - css
+    - doc
+        + 文档模块1
+        + 文档模块2
+    - index.html 首页
+    - index.md 首页markdown文档
 
 在index.md写入markdown 首页入口
 doc目录是各个接口的markdown文档，index.md超链接到接口详情页
